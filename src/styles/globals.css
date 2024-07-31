@@ -70,6 +70,12 @@
   }
 }
 
+@layer utilities{
+  .bg-tecnologia {
+    background: linear-gradient(to bottom, #ffffff 10%,#000000 10%,#000000 90%,#ffffff 90%);
+  }
+}
+
 html {
   font-family: var(--font-raleway);
 }

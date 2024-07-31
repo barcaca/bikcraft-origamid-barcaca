@@ -28,7 +28,7 @@ export default function RootLayout({
       lang="en"
       className={`${poppins.variable} ${raleway.variable} h-full`}
     >
-      <body>
+      <body className="antialiased">
         <Provider>
           <Header />
           {children}
