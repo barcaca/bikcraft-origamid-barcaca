@@ -2,6 +2,7 @@ import '@/styles/globals.css'
 
 import type { Metadata } from 'next'
 
+import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
 import { poppins, raleway } from '@/fonts/font'
 
@@ -31,6 +32,7 @@ export default function RootLayout({
         <Provider>
           <Header />
           {children}
+          <Footer />
         </Provider>
       </body>
     </html>
