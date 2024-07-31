@@ -1,0 +1,85 @@
+{
+  "bikes": [
+    {
+      "id": 1,
+      "slug": "nimbus",
+      "name": "Nimbus Stark",
+      "price": 4999,
+      "description": "A Nimbus Stark é a melhor Bikcraft já criada pela nossa equipe. Ela vem equipada com os melhores acessórios, o que garante maior velocidade.",
+      "image": "/bicicletas/nimbus-home.jpg",
+      "images": [
+        "/bicicleta/nimbus1.jpg",
+        "/bicicleta/nimbus2.jpg",
+        "/bicicleta/nimbus3.jpg"
+      ],
+      "features": {
+        "motor": "Motor com 12 cilindros",
+        "speed": "40 km/h",
+        "tracker": "Rastreador",
+        "material": "Fibra de Carbono"
+      },
+      "specs": {
+        "peso": "9 kg",
+        "altura": "60 cm",
+        "largura": "120 cm",
+        "profundidade": "10 cm",
+        "marchas": "16",
+        "roda": "29"
+      }
+    },
+    {
+      "id": 2,
+      "slug": "magic",
+      "name": "Magic Might",
+      "price": 2499,
+      "description": "A Magic Might é a melhor Bikcraft já criada pela nossa equipe. Ela vem equipada com os melhores acessórios, o que garante maior velocidade.",
+      "image": "/bicicletas/magic-home.jpg",
+      "images": [
+        "/bicicleta/nimbus2.jpg",
+        "/bicicleta/nimbus1.jpg",
+        "/bicicleta/nimbus3.jpg"
+      ],
+      "features": {
+        "motor": "Motor com 6 cilindros",
+        "speed": "20 km/h",
+        "tracker": "Rastreador GPS",
+        "material": "Fibra de Carbono Premium"
+      },
+      "specs": {
+        "peso": "10 kg",
+        "altura": "62 cm",
+        "largura": "122 cm",
+        "profundidade": "11 cm",
+        "marchas": "18",
+        "roda": "30"
+      }
+    },
+    {
+      "id": 3,
+      "name": "Nebula Cosmic",
+      "slug": "nebula",
+      "price": 3999,
+      "description": "A Nebula Cosmic é a melhor Bikcraft já criada pela nossa equipe. Ela vem equipada com os melhores acessórios, o que garante maior velocidade.",
+      "image": "/bicicletas/nebula-home.jpg",
+      "images": [
+        "/bicicleta/nimbus3.jpg",
+        "/bicicleta/nimbus1.jpg",
+        "/bicicleta/nimbus2.jpg"
+      ],
+      "features": {
+        "motor": "Motor com 8 cilindros",
+        "speed": "30 km/h",
+        "tracker": "Rastreador GPS Avançado",
+        "material": "Fibra de Carbono Ultra-Leve"
+      },
+      "specs": {
+        "peso": "10 kg",
+        "altura": "64 cm",
+        "largura": "124 cm",
+        "profundidade": "12 cm",
+        "marchas": "20",
+        "roda": "31"
+      }
+    }
+  ]
+}
