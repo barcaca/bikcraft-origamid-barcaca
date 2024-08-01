@@ -73,7 +73,7 @@ export function TierCard() {
               buttonVariants({
                 variant: tier.featured ? 'default' : 'secondary',
               }),
-              'mt-5 px-8 py-6 text-lg font-semibold uppercase',
+              'mt-5 px-8 py-6 text-lg font-semibold uppercase shadow-shape',
             )}
           >
             Inscreva-se

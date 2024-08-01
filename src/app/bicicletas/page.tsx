@@ -46,7 +46,7 @@ function ProductFeatures() {
             aria-labelledby={`bike-title-${bike.slug}`}
           >
             <div className={'lg:container'}>
-              <div className="overflow-hidden lg:rounded-lg">
+              <div className="relative overflow-hidden shadow-shape lg:rounded-lg">
                 <Image
                   width={1120}
                   height={680}
@@ -54,6 +54,9 @@ function ProductFeatures() {
                   alt={`Bicicleta Elétrica ${bike.name}`}
                   className="object-cover object-center"
                 />
+                <span className="absolute right-0 top-4 rounded-l-md bg-background py-2 pl-2 pr-4 text-foreground">
+                  R$ {bike.price}
+                </span>
               </div>
             </div>
             <div className={'mt-3 px-6 sm:mt-6 lg:mt-0 lg:pr-8'}>
@@ -90,7 +93,7 @@ function ProductFeatures() {
                   href={`/bicicletas/${bike.slug}`}
                   className={cn(
                     buttonVariants(),
-                    'group mt-5 gap-2 self-end px-8 py-6 text-lg font-semibold uppercase',
+                    'group mt-5 gap-2 self-end px-8 py-6 text-lg font-semibold uppercase shadow-shape',
                   )}
                   aria-label={`Mais sobre ${bike.name}`}
                 >

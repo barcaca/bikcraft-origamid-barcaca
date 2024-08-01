@@ -72,8 +72,15 @@
 
 @layer utilities{
   .bg-tecnologia {
-    background: linear-gradient(to bottom, #ffffff 10%,#000000 10%,#000000 90%,#ffffff 90%);
+    background: linear-gradient(to bottom, #ffffff 10%,#292524 10%,#292524 90%,#ffffff 90%);
   }
+  .bg-seguro {
+    background: linear-gradient(to bottom, #ffffff 10%,#292524 10%,#292524 90%,#0c0a09 90%);
+  }
+  .bg-seguro-2 {
+    background: linear-gradient(to bottom, #292524 10%,#292524 90%,#0c0a09 90%);
+  }
+
 }
 
 html {
