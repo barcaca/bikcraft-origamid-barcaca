@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { SocialLinks } from './social-links'
+
 const navigation = [
   { name: 'Bicicletas', href: '/bicicletas' },
   { name: 'Seguros', href: '/seguros' },
@@ -12,17 +14,6 @@ const contato = [
   { text: '+55 21 9999-9999' },
   { text: 'contato@bikcraft.com' },
   { text: 'Rua Ali Perto, 42 - Botafogo Rio de Janeiro - RJ' },
-]
-
-const social = [
-  { name: 'Youtube', src: '/redes/youtube.svg', alt: 'youtube', href: '#' },
-  { name: 'Facebook', src: '/redes/facebook.svg', alt: 'facebook', href: '#' },
-  {
-    name: 'Instagram',
-    src: '/redes/instagram.svg',
-    alt: 'instagram',
-    href: '#',
-  },
 ]
 
 export function Footer() {
@@ -60,24 +51,7 @@ export function Footer() {
           })}
         </div>
         <div className="flex justify-center space-x-10">
-          {social.map((item) => {
-            return (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="text-gray-400 hover:text-gray-500"
-              >
-                <span className="sr-only">{item.name}</span>
-                <Image
-                  width={32}
-                  height={32}
-                  src={item.src}
-                  alt={item.alt}
-                  aria-hidden="true"
-                />
-              </Link>
-            )
-          })}
+          <SocialLinks color />
         </div>
         <p className="mt-6 text-center leading-5 text-muted-foreground">
           Bikcraft &copy; Alguns direitos reservados.
