@@ -71,4 +71,4 @@ Desenvolver o Bikcraft proporcionou diversos aprendizados, incluindo:
 
 ## 📜 Licença
 
-Este projeto está licenciado sob a Licença MIT - veja o arquivo [MIT](https://github.com/barcaca/taskflow-barcaca/blob/main/LICENSE)
+Este projeto está licenciado sob a Licença MIT - veja o arquivo [MIT](https://github.com/barcaca/bikcraft-origamid-barcaca/blob/main/LICENSE)
