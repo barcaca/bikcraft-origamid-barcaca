@@ -1,7 +1,9 @@
+import { CheckIcon } from 'lucide-react'
 import Image from 'next/image'
 
 import { featureIcons } from '@/app/bicicletas/page'
 import { CustomFormRadio } from '@/components/custom-form-radio'
+import { tiers } from '@/components/tier-card'
 import { FormControl, FormItem, FormLabel } from '@/components/ui/form'
 import { RadioGroupItem } from '@/components/ui/radio-group'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -91,10 +93,48 @@ export function FormBudgetPlanBike({ bikes }: { bikes: Bike[] }) {
               </CustomFormRadio>
             </TabsContent>
             <TabsContent value="seguro">
-              <div className="flex items-center gap-2">
+              <div className="mb-5 flex items-center gap-2">
                 <span className="mr-2 inline-block h-3 w-2 bg-yellow-500" />
                 <h3 className="uppercase">Escolha seu plano:</h3>
               </div>
+              <CustomFormRadio name="produto">
+                {tiers.map((tier) => {
+                  return (
+                    <FormItem
+                      key={tier.id}
+                      className="relative grid grid-cols-[min-content_1fr] items-center gap-2 space-y-0 rounded-md bg-secondary p-4 transition-all duration-500 ease-in-out has-[:checked]:bg-foreground has-[:checked]:text-background"
+                    >
+                      <FormControl>
+                        <RadioGroupItem value={tier.name} className="peer" />
+                      </FormControl>
+                      <FormLabel className="!m-0 text-base font-semibold">
+                        {tier.name}
+                      </FormLabel>
+                      <span className="absolute right-4 top-4 hidden font-semibold peer-aria-checked:block">
+                        R$ {tier.price}
+                      </span>
+                      <div className="col-span-2 hidden gap-y-2 px-2 peer-aria-checked:grid xs:grid-cols-2">
+                        <ul className="grid h-full gap-2 text-xs">
+                          {tier.features.map((feature) => {
+                            return (
+                              <li
+                                key={feature}
+                                className="flex items-center gap-2"
+                              >
+                                <CheckIcon
+                                  className={`${tier.featured ? 'text-primary' : 'text-primary/80'} h-6 w-5 flex-none`}
+                                  aria-hidden="true"
+                                />
+                                {feature}
+                              </li>
+                            )
+                          })}
+                        </ul>
+                      </div>
+                    </FormItem>
+                  )
+                })}
+              </CustomFormRadio>
             </TabsContent>
           </Tabs>
         </div>

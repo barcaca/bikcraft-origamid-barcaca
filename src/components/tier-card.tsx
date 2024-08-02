@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils'
 
 import { buttonVariants } from './ui/button'
 
-const tiers = [
+export const tiers = [
   {
     name: 'Prata',
     id: 'tier-prata',
