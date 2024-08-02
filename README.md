@@ -50,7 +50,7 @@ Bikcraft é um projeto desenvolvido durante o curso da Origamid que apresenta um
 
 ## 🔗 Links
 
-- [Live Site URL](https://taskflow-barcaca.vercel.app)
+- [Live Site URL](https://bikcraft-origamid-barcaca.vercel.app)
 
 ## 🏆 Conclusão
 
