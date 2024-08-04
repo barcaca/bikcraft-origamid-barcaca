@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { Motion } from '@/components/motion-wrapper'
 import { ProductList } from '@/components/product-list'
 import { TierCard } from '@/components/tier-card'
 import { buttonVariants } from '@/components/ui/button'
@@ -34,7 +35,17 @@ function HeroSection() {
         className="absolute bottom-40 left-10 hidden md:block"
         aria-hidden="true"
       />
-      <div className="container grid gap-x-10 px-6 py-8 transition-all duration-700 md:grid-cols-2 lg:px-8">
+      <Motion
+        type="div"
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.8,
+          delay: 0.5,
+          ease: [0, 0.71, 0.2, 1.01],
+        }}
+        className="container grid gap-x-10 px-6 py-8 transition-all duration-700 md:grid-cols-2 lg:px-8"
+      >
         <div className="mx-auto max-w-2xl self-end pb-10 sm:pb-16 md:pb-56 lg:mx-0">
           <h1 className="text-4xl font-bold sm:text-6xl">
             Bicicletas feitas sob medida<span className="text-primary">.</span>
@@ -63,7 +74,7 @@ function HeroSection() {
             className="h-[18.75rem] w-[40rem] min-w-full max-w-full rounded-md object-cover md:h-[50rem]"
           />
         </div>
-      </div>
+      </Motion>
     </main>
   )
 }
