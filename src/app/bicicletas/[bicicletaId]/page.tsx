@@ -11,6 +11,7 @@ import { cn, entries } from '@/lib/utils'
 import { Bike, BikeFeatureKey } from '@/types/bikes'
 
 import { featureIcons } from '../page'
+import { GalleryImagens } from './_components/gallery-imagens'
 
 export async function generateMetadata({
   params,
@@ -79,24 +80,8 @@ function ProductOverviews({ bike }: { bike: Bike }) {
         <div className="grid gap-8 pb-16 sm:pb-32 lg:grid-cols-2">
           <div>
             <h2 className="sr-only">Images</h2>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-2 lg:gap-8">
-              {bike.images.map((image, i) => (
-                <Image
-                  width={1120}
-                  height={880}
-                  key={i}
-                  src={image}
-                  alt={''}
-                  className={cn(
-                    i === 0 ? 'lg:col-span-2' : 'hidden lg:block',
-                    'rounded-lg',
-                  )}
-                />
-              ))}
-            </div>
+            <GalleryImagens images={bike.images} />
           </div>
-
           <div>
             <p className="text-lg text-muted-foreground sm:text-2xl">
               {bike.description}
