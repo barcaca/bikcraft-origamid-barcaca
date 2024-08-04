@@ -10,7 +10,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { entries } from '@/lib/utils'
 import { Bike } from '@/types/bikes'
 
-export function FormBudgetPlanBike({ bikes }: { bikes: Bike[] }) {
+import { SearchParams } from '../page'
+
+interface FormBudgetPlanBikeProps extends SearchParams {
+  bikes: Bike[]
+}
+
+export function FormBudgetPlanBike({
+  bikes,
+  tipo,
+  produto,
+}: FormBudgetPlanBikeProps) {
   return (
     <div className="relative rounded-t-md bg-background px-6 py-16 lg:rounded-l-md lg:px-8">
       <Image
@@ -27,7 +37,7 @@ export function FormBudgetPlanBike({ bikes }: { bikes: Bike[] }) {
             <span className="mr-2 inline-block h-3 w-2 bg-yellow-500" />
             <h3 className="uppercase">bikcraft ou seguro?</h3>
           </div>
-          <Tabs defaultValue="bikcraft">
+          <Tabs defaultValue={tipo || 'bikcraft'}>
             <TabsList className="mb-10 w-full gap-5 bg-transparent px-5">
               <TabsTrigger value="bikcraft" className="w-full p-4">
                 Bikcraft
@@ -41,7 +51,7 @@ export function FormBudgetPlanBike({ bikes }: { bikes: Bike[] }) {
                 <span className="mr-2 inline-block h-3 w-2 bg-yellow-500" />
                 <h3 className="uppercase">Escolha a sua:</h3>
               </div>
-              <CustomFormRadio name="produto">
+              <CustomFormRadio name="produto" defaultValue={produto}>
                 {bikes.map((bike) => {
                   return (
                     <FormItem
@@ -97,7 +107,7 @@ export function FormBudgetPlanBike({ bikes }: { bikes: Bike[] }) {
                 <span className="mr-2 inline-block h-3 w-2 bg-yellow-500" />
                 <h3 className="uppercase">Escolha seu plano:</h3>
               </div>
-              <CustomFormRadio name="produto">
+              <CustomFormRadio name="produto" defaultValue={produto}>
                 {tiers.map((tier) => {
                   return (
                     <FormItem

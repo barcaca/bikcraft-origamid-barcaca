@@ -103,7 +103,10 @@ function ProductOverviews({ bike }: { bike: Bike }) {
             </p>
             <div className="mt-4 flex flex-col items-start gap-3 sm:mt-8 sm:flex-row sm:items-center">
               <Link
-                href={'/orcamento'}
+                href={{
+                  pathname: '/orcamento',
+                  query: { tipo: 'bikcraft', produto: bike.slug },
+                }}
                 className={cn(
                   buttonVariants(),
                   'group gap-2 px-8 py-6 text-lg font-semibold uppercase shadow-shape',

@@ -50,7 +50,7 @@ const estadosBrasil = [
   { sigla: 'TO', nome: 'Tocantins' },
 ]
 
-export function FormBudgetAddress() {
+export function FormBudgetAddress({ onPending }: { onPending: boolean }) {
   const { control } = useFormContext()
   return (
     <div className="relative col-span-2 rounded-b-md bg-foreground px-6 py-16 lg:rounded-r-md lg:px-8">
@@ -68,13 +68,14 @@ export function FormBudgetAddress() {
             <span className="mr-2 inline-block h-3 w-2 bg-yellow-500" />
             <h3 className="uppercase text-background">Dados Pessoais</h3>
           </div>
-          <CustomFormField name="first-name" label="Nome" />
-          <CustomFormField name="last-name" label="Sobrenome" />
+          <CustomFormField name="firstName" label="Nome" />
+          <CustomFormField name="lastName" label="Sobrenome" />
           <div className="sm:col-span-2">
             <CustomFormField
               name="cpf"
               placeholder="000.000.000-00"
               label="CPF"
+              mask="cpf"
             />
           </div>
           <div className="sm:col-span-2">
@@ -84,7 +85,7 @@ export function FormBudgetAddress() {
             <span className="mr-2 inline-block h-3 w-2 bg-yellow-500" />
             <h3 className="uppercase text-background">Entrega</h3>
           </div>
-          <CustomFormField name="cep" label="CEP" />
+          <CustomFormField name="cep" label="CEP" mask="cep" />
           <CustomFormField name="number" label="Número" />
           <CustomFormField name="logradouro" label="Logradouro" />
           <CustomFormField name="bairro" label="Bairro" />
@@ -137,12 +138,17 @@ export function FormBudgetAddress() {
                   </Link>
                   .
                 </FormLabel>
+                <FormMessage />
               </FormItem>
             )}
           />
         </div>
         <div className="mt-8 flex justify-start">
-          <Button className="mt-5 px-8 py-6 text-lg font-semibold uppercase shadow-shape">
+          <Button
+            type="submit"
+            disabled={onPending}
+            className="mt-5 px-8 py-6 text-lg font-semibold uppercase shadow-shape"
+          >
             Solicitar Orçamento
           </Button>
         </div>

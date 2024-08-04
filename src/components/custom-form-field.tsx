@@ -16,6 +16,7 @@ interface CustomFormFieldProps {
   placeholder?: string
   isTextArea?: boolean
   type?: string
+  mask?: 'cpf' | 'cep'
 }
 
 export function CustomFormField({
@@ -24,16 +25,46 @@ export function CustomFormField({
   placeholder,
   isTextArea,
   type = 'text',
+  mask,
 }: CustomFormFieldProps) {
-  const { control } = useFormContext()
+  const { control, setValue } = useFormContext()
+  // Função para formatar CPF
+  const formatCPF = (value: string) => {
+    // Remove tudo que não é dígito
+    const cleaned = value.replace(/\D/g, '').slice(0, 11)
+    // Adiciona a formatação
+    return cleaned
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d{1,2})$/, '$1-$2')
+  }
+
+  // Função para formatar CEP
+  const formatCEP = (value: string) => {
+    // Remove tudo que não é dígito
+    const cleaned = value.replace(/\D/g, '').slice(0, 8)
+    // Adiciona a formatação
+    return cleaned.replace(/(\d{5})(\d)/, '$1-$2')
+  }
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target
+    const newValue =
+      mask === 'cep'
+        ? formatCEP(value)
+        : mask === 'cpf'
+          ? formatCPF(value)
+          : value
+
+    setValue(name, newValue)
+  }
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem>
+        <FormItem className="relative">
           <FormLabel className="text-background">{label}</FormLabel>
-          <FormControl>
+          <FormControl onChange={handleChange}>
             {isTextArea ? (
               <Textarea placeholder={placeholder} {...field} rows={10} />
             ) : (
@@ -41,11 +72,12 @@ export function CustomFormField({
                 type={type}
                 className="bg-foreground"
                 placeholder={placeholder}
+                data-mask={mask}
                 {...field}
               />
             )}
           </FormControl>
-          <FormMessage />
+          <FormMessage className="absolute -top-1 right-0" />
         </FormItem>
       )}
     />

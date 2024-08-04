@@ -2,10 +2,11 @@ import { CheckIcon } from 'lucide-react'
 import Link from 'next/link'
 
 import { cn } from '@/lib/utils'
+import { Tier } from '@/types/tier'
 
 import { buttonVariants } from './ui/button'
 
-export const tiers = [
+export const tiers: Tier[] = [
   {
     name: 'Prata',
     id: 'tier-prata',
@@ -67,7 +68,10 @@ export function TierCard() {
             ))}
           </ul>
           <Link
-            href={'/'}
+            href={{
+              pathname: '/orcamento',
+              query: { tipo: 'seguro', produto: tier.name },
+            }}
             aria-describedby={tier.id}
             className={cn(
               buttonVariants({
