@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 
 import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
+import { Toaster } from '@/components/ui/sonner'
 import { poppins, raleway } from '@/fonts/font'
 
 import { Provider } from './provider'
@@ -32,6 +33,7 @@ export default function RootLayout({
         <Provider>
           <Header />
           {children}
+          <Toaster richColors position="top-center" />
           <Footer />
         </Provider>
       </body>
