@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
 
+import { Motion } from '@/components/motion-wrapper'
 import { Title } from '@/components/title'
 
 import { Address } from './_components/address'
@@ -59,13 +60,39 @@ const address = [
   },
 ]
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      duration: 0.8,
+      delayChildren: 0.5,
+      staggerChildren: 0.2,
+    },
+  },
+}
+
+const item = {
+  hidden: { opacity: 0, scale: 0.2 },
+  show: { opacity: 1, scale: 1 },
+}
+
 function CardAddress() {
   return (
     <article className="bg-foreground py-16 text-background lg:py-32">
       <div className="container px-6 sm:px-8">
-        <div className="grid grid-cols-1 sm:gap-6 lg:grid-cols-2 lg:gap-8">
+        <Motion
+          type="div"
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0 }}
+          className="grid grid-cols-1 sm:gap-6 lg:grid-cols-2 lg:gap-8"
+        >
           {address.map((info) => (
-            <div
+            <Motion
+              type="div"
+              variants={item}
               key={info.name}
               className="flex flex-col overflow-hidden rounded-lg shadow-shape"
               aria-labelledby={`address-title-${info.name}`}
@@ -107,9 +134,9 @@ function CardAddress() {
                   <p className="text-base font-semibold">08-18h de seg à dom</p>
                 </div>
               </div>
-            </div>
+            </Motion>
           ))}
-        </div>
+        </Motion>
       </div>
     </article>
   )

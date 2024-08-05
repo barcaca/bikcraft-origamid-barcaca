@@ -1,9 +1,9 @@
 import { CheckIcon } from 'lucide-react'
-import Link from 'next/link'
 
 import { cn } from '@/lib/utils'
 import { Tier } from '@/types/tier'
 
+import { Motion, MotionLink } from './motion-wrapper'
 import { buttonVariants } from './ui/button'
 
 export const tiers: Tier[] = [
@@ -34,11 +34,49 @@ export const tiers: Tier[] = [
     featured: true,
   },
 ]
+const variants = {
+  hidden: {
+    y: 200,
+    opacity: 0,
+  },
+  show: {
+    y: 0,
+    opacity: 1,
+  },
+}
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      delayChildren: 0.5,
+      staggerChildren: 0.2,
+    },
+  },
+}
+
+const item = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1 },
+}
 export function TierCard() {
   return (
     <div className="flex flex-col items-center justify-between gap-10 sm:flex-row">
-      {tiers.map((tier) => (
-        <div
+      {tiers.map((tier, i) => (
+        <Motion
+          type="div"
+          variants={variants}
+          initial="hidden"
+          whileInView="show"
+          transition={{
+            type: 'spring',
+            bounce: 0.4,
+            duration: 0.8,
+            delay: 0.25 * i,
+            delayChildren: 0.5,
+          }}
+          viewport={{ once: true, amount: 0 }}
           key={tier.id}
           className={'w-full max-w-xl rounded-md bg-background p-8 sm:p-10'}
         >
@@ -53,21 +91,32 @@ export function TierCard() {
               <span className="text-base text-muted-foreground">/mensal</span>
             </p>
           </div>
-          <ul
-            role="list"
+          <Motion
+            type="ul"
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0 }}
             className={`mt-8 space-y-3 text-sm leading-6 sm:mt-10`}
           >
             {tier.features.map((feature) => (
-              <li key={feature} className="flex gap-x-3">
+              <Motion
+                type="li"
+                variants={item}
+                key={feature}
+                className="flex gap-x-3"
+              >
                 <CheckIcon
                   className={`${tier.featured ? 'text-primary' : 'text-primary/80'} h-6 w-5 flex-none`}
                   aria-hidden="true"
                 />
                 {feature}
-              </li>
+              </Motion>
             ))}
-          </ul>
-          <Link
+          </Motion>
+          <MotionLink
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
             href={{
               pathname: '/orcamento',
               query: { tipo: 'seguro', produto: tier.name },
@@ -81,8 +130,8 @@ export function TierCard() {
             )}
           >
             Inscreva-se
-          </Link>
-        </div>
+          </MotionLink>
+        </Motion>
       ))}
     </div>
   )

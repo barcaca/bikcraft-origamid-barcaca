@@ -3,22 +3,70 @@ import Link from 'next/link'
 
 import { Bike } from '@/types/bikes'
 
+import { Motion } from './motion-wrapper'
+
+const transitionHeading = {
+  duration: 0.8,
+  ease: 'easeInOut',
+}
+
+const animateHeading = {
+  hidden: { opacity: 0, x: 300 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: transitionHeading,
+  },
+}
+
+const variants = {
+  hidden: {
+    x: -300,
+    opacity: 0,
+  },
+  show: {
+    x: 0,
+    opacity: 1,
+  },
+}
+
 export function ProductList({ bikes }: { bikes: Bike[] }) {
   const bikeLength = bikes.length
   return (
     <article className="bg-foreground py-16 text-background sm:py-32">
       <div className="lg:px-8">
         <header className="container mb-10 px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold sm:text-6xl">
+          <Motion
+            type="h2"
+            variants={animateHeading}
+            initial={'hidden'}
+            whileInView={'show'}
+            viewport={{ once: true, amount: 0 }}
+            className="text-4xl font-bold sm:text-6xl"
+          >
             escolha a sua<span className="text-primary">.</span>
-          </h2>
+          </Motion>
         </header>
         <ul
           role="list"
           className={`${bikeLength <= 2 ? 'lg:grid-cols-2' : 'lg:grid-cols-3'} container flex gap-8 overflow-x-auto pb-6 lg:grid`}
         >
-          {bikes.map((bike) => (
-            <li key={bike.id} className="inline-flex w-auto min-w-72 flex-col">
+          {bikes.map((bike, i) => (
+            <Motion
+              type="li"
+              variants={variants}
+              initial="hidden"
+              whileInView="show"
+              transition={{
+                type: 'spring',
+                bounce: 0.4,
+                duration: 0.8,
+                delay: 0.25 * i,
+              }}
+              viewport={{ once: true, amount: 0 }}
+              key={bike.id}
+              className="inline-flex w-auto min-w-72 flex-col"
+            >
               <div className="group relative">
                 <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200">
                   <Image
@@ -42,7 +90,7 @@ export function ProductList({ bikes }: { bikes: Bike[] }) {
                   </p>
                 </div>
               </div>
-            </li>
+            </Motion>
           ))}
         </ul>
       </div>

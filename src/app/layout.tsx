@@ -29,7 +29,7 @@ export default function RootLayout({
       lang="en"
       className={`${poppins.variable} ${raleway.variable} h-full`}
     >
-      <body className="antialiased">
+      <body className="overflow-x-hidden antialiased">
         <Provider>
           <Header />
           {children}

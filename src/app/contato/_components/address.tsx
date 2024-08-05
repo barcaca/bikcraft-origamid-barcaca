@@ -1,18 +1,77 @@
 import { Building2Icon, MailsIcon, PhoneIcon } from 'lucide-react'
 import Link from 'next/link'
 
+import { Motion } from '@/components/motion-wrapper'
 import { SocialLinks } from '@/components/social-links'
 import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 const emails = ['contato@bikcraft.com', 'vendas@bikcraft.com']
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      delayChildren: 0.2,
+      staggerChildren: 0.2,
+    },
+  },
+}
+
+const item = {
+  hidden: { opacity: 0, x: -100 },
+  show: { opacity: 1, x: 0 },
+}
+
+const transition = {
+  duration: 0.5,
+  delay: 0.2,
+  ease: 'easeInOut',
+}
+
+const animateDownToUp = {
+  hidden: { opacity: 0, y: 100 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition,
+  },
+}
+const transitionHeading = {
+  duration: 0.8,
+  ease: 'easeInOut',
+}
+const animateHeading = {
+  hidden: { opacity: 0, x: 200 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: transitionHeading,
+  },
+}
 export function Address() {
   return (
     <address>
-      <h2 className="text-xl">Loja Online</h2>
-      <dl className="mt-10 space-y-8">
-        <div className="flex gap-x-4">
+      <Motion
+        type="h2"
+        variants={animateHeading}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0 }}
+        className="text-xl"
+      >
+        Loja Online
+      </Motion>
+      <Motion
+        type="dl"
+        variants={container}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0 }}
+        className="mt-10 space-y-8"
+      >
+        <Motion type="div" variants={item} className="flex gap-x-4">
           <dt className="flex-none">
             <span className="sr-only">Endereço</span>
             <Building2Icon
@@ -28,8 +87,8 @@ export function Address() {
             <br />
             Brasil - Terra - Vita Láctea
           </dd>
-        </div>
-        <div className="flex gap-x-4">
+        </Motion>
+        <Motion type="div" variants={item} className="flex gap-x-4">
           <dt className="flex-none">
             <span className="sr-only">Email</span>
             <MailsIcon size={24} className="text-primary" aria-hidden="true" />
@@ -50,8 +109,8 @@ export function Address() {
               )
             })}
           </dd>
-        </div>
-        <div className="flex gap-x-4">
+        </Motion>
+        <Motion type="div" variants={item} className="flex gap-x-4">
           <dt className="flex-none">
             <span className="sr-only">Telefone</span>
             <PhoneIcon size={24} className="text-primary" aria-hidden="true" />
@@ -67,11 +126,18 @@ export function Address() {
               +55 21 9999-9999
             </Link>
           </dd>
-        </div>
-      </dl>
-      <div className="ml-4 mt-16 flex space-x-10">
+        </Motion>
+      </Motion>
+      <Motion
+        type="div"
+        variants={animateDownToUp}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0 }}
+        className="ml-4 mt-16 flex space-x-10"
+      >
         <SocialLinks color />
-      </div>
+      </Motion>
     </address>
   )
 }

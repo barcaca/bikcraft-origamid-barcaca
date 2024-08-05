@@ -1,12 +1,14 @@
 'use client'
 import { motion, MotionProps } from 'framer-motion'
+import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 interface CustomMotionProps<Tag extends keyof JSX.IntrinsicElements>
   extends MotionProps {
   type?: Tag
   children: React.ReactNode
-  className: string | undefined | null
+  className?: string | undefined | null
 }
 
 export const Motion = <Tag extends keyof JSX.IntrinsicElements>({
@@ -23,3 +25,6 @@ export const Motion = <Tag extends keyof JSX.IntrinsicElements>({
     </Component>
   )
 }
+
+export const MotionLink = motion(Link)
+export const MotionImagem = motion(Image)
