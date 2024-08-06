@@ -1,17 +1,47 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
 
+import { Motion } from '@/components/motion-wrapper'
 import { TierCard } from '@/components/tier-card'
 import { Title } from '@/components/title'
 import {
   Accordion,
   AccordionContent,
-  AccordionItem,
   AccordionTrigger,
+  MotionAccordionItem,
 } from '@/components/ui/accordion'
 
 export const metadata: Metadata = {
   title: 'Seguros',
+}
+
+const transitionHeading = {
+  duration: 0.8,
+  ease: 'easeInOut',
+}
+const animateHeading = {
+  hidden: { opacity: 0, x: 200 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: transitionHeading,
+  },
+}
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      delayChildren: 0.2,
+      staggerChildren: 0.2,
+    },
+  },
+}
+
+const item = {
+  hidden: { opacity: 0, scale: 0.2 },
+  show: { opacity: 1, scale: 1 },
 }
 
 export default function SeguroPage() {
@@ -105,22 +135,36 @@ function FeaturedSection() {
       />
       <div className="container px-6 lg:px-8">
         <header>
-          <h2 className="mt-2 text-4xl font-bold sm:text-6xl">
+          <Motion
+            type="h2"
+            variants={animateHeading}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0 }}
+            className="mt-2 text-4xl font-bold sm:text-6xl"
+          >
             nossas vantagens<span className="text-primary">.</span>
-          </h2>
+          </Motion>
         </header>
         <div className="mt-16 sm:mt-20 md:mt-24">
-          <dl className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <Motion
+            type="dl"
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0 }}
+            className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+          >
             {features.map((feature) => (
-              <div key={feature.name}>
+              <Motion type="div" variants={item} key={feature.name}>
                 <dt className="inline text-2xl font-semibold">
                   <Image width={24} height={24} src={feature.icon} alt="" />
                   {feature.name}
                 </dt>{' '}
                 <dd className="text-muted-foreground">{feature.description}</dd>
-              </div>
+              </Motion>
             ))}
-          </dl>
+          </Motion>
         </div>
       </div>
     </section>
@@ -165,31 +209,52 @@ const faqs = [
   },
 ]
 
+const itemFaq = {
+  hidden: { opacity: 0, y: 100 },
+  show: { opacity: 1, y: 0 },
+}
+
 function FaqSections() {
   return (
     <article className="bg-foreground py-24 text-background sm:py-32">
       <div className="container px-6 sm:px-8">
         <header>
-          <h2 className="mt-2 text-4xl font-bold sm:text-6xl">
+          <Motion
+            type="h2"
+            variants={animateHeading}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0 }}
+            className="mt-2 text-4xl font-bold sm:text-6xl"
+          >
             perguntas frequentes
             <span className="text-yellow-500">.</span>
-          </h2>
+          </Motion>
         </header>
-        <Accordion type="multiple" className="mt-20">
-          {faqs.map((faq) => (
-            <AccordionItem
-              key={faq.question}
-              value={faq.question}
-              className="rounded-md border-none pl-10 pr-5 odd:bg-muted/5"
-            >
-              <AccordionTrigger className="relative text-left font-semibold before:absolute before:-left-4 before:block before:h-2 before:w-3 before:bg-yellow-500 md:text-xl">
-                {faq.question}
-              </AccordionTrigger>
-              <AccordionContent className="text-lg">
-                {faq.answer}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
+        <Accordion asChild type="multiple" className="mt-20">
+          <Motion
+            type="div"
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0 }}
+          >
+            {faqs.map((faq) => (
+              <MotionAccordionItem
+                variants={itemFaq}
+                key={faq.question}
+                value={faq.question}
+                className="rounded-md border-none pl-10 pr-5 odd:bg-muted/5"
+              >
+                <AccordionTrigger className="relative text-left font-semibold before:absolute before:-left-4 before:block before:h-2 before:w-3 before:bg-yellow-500 md:text-xl">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-lg">
+                  {faq.answer}
+                </AccordionContent>
+              </MotionAccordionItem>
+            ))}
+          </Motion>
         </Accordion>
       </div>
     </article>

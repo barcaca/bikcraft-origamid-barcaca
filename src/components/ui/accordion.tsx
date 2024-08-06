@@ -1,6 +1,7 @@
 'use client'
 
 import * as AccordionPrimitive from '@radix-ui/react-accordion'
+import { motion } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import * as React from 'react'
 
@@ -19,6 +20,8 @@ const AccordionItem = React.forwardRef<
   />
 ))
 AccordionItem.displayName = 'AccordionItem'
+
+export const MotionAccordionItem = motion(AccordionItem)
 
 const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
