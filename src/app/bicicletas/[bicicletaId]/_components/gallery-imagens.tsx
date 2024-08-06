@@ -1,12 +1,17 @@
 'use client'
 
 import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react'
-import Image from 'next/image'
 import { useState } from 'react'
 
+import { MotionImagem } from '@/components/motion-wrapper'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { Bike } from '@/types/bikes'
+
+const item = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1 },
+}
 
 export function GalleryImagens({ images }: { images: Bike['images'] }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -22,16 +27,15 @@ export function GalleryImagens({ images }: { images: Bike['images'] }) {
       return index + 1
     })
   }
-
   function showPrevImagem() {
     setCurrentImageIndex((index) => {
-      if (index === images.length - 1) return 0
-      return index + 1
+      if (index === 0) return images.length - 1
+      return index - 1
     })
   }
 
   return (
-    <div className="relative flex overflow-hidden lg:grid lg:grid-cols-2 lg:grid-rows-2 lg:gap-8">
+    <div className="relative grid overflow-hidden lg:grid-cols-2 lg:grid-rows-2 lg:gap-8">
       <Button
         onClick={showPrevImagem}
         variant={'ghost'}
@@ -40,7 +44,8 @@ export function GalleryImagens({ images }: { images: Bike['images'] }) {
         <ArrowLeftIcon />
       </Button>
       {images.map((image, i) => (
-        <Image
+        <MotionImagem
+          variants={item}
           width={1120}
           height={880}
           key={i}

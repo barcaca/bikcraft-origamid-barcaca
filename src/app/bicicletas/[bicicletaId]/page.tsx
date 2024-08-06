@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
+import { Motion, MotionImagem } from '@/components/motion-wrapper'
 import { ProductList } from '@/components/product-list'
 import { Title } from '@/components/title'
 import { buttonVariants } from '@/components/ui/button'
@@ -65,6 +66,69 @@ const featuresDescription: Record<BikeFeatureKey, string> = {
   material: 'Maior proteção possível para a sua Bikcraft com fibra de carbono.',
 }
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      delayChildren: 0.5,
+      staggerChildren: 0.2,
+    },
+  },
+}
+
+const transition = {
+  duration: 0.5,
+  delay: 0.2,
+  ease: 'easeInOut',
+}
+const animateRightToLeft = {
+  hidden: { opacity: 0, x: 100 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition,
+  },
+}
+const animateLeftToRight = {
+  hidden: { opacity: 0, x: -100 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition,
+  },
+}
+const animateDownToUp = {
+  hidden: { opacity: 0, y: 100 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition,
+  },
+}
+
+const animateUptoDown = {
+  hidden: { opacity: 0, y: -100 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition,
+  },
+}
+
+const animateScale = {
+  hidden: { opacity: 0, scale: 0.2 },
+  show: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      ease: 'easeInOut',
+      bounce: 0.4,
+      duration: 0.5,
+    },
+  },
+}
+
 function ProductOverviews({ bike }: { bike: Bike }) {
   return (
     <article className="relative bg-secondary">
@@ -78,15 +142,35 @@ function ProductOverviews({ bike }: { bike: Bike }) {
       />
       <div className="container px-6 lg:px-8">
         <div className="grid gap-8 pb-16 sm:pb-32 lg:grid-cols-2">
-          <div>
+          <Motion
+            type="div"
+            variants={container}
+            initial={'hidden'}
+            whileInView={'show'}
+            viewport={{ once: true, amount: 0 }}
+          >
             <h2 className="sr-only">Images</h2>
             <GalleryImagens images={bike.images} />
-          </div>
+          </Motion>
           <div>
-            <p className="text-lg text-muted-foreground sm:text-2xl">
+            <Motion
+              type="p"
+              variants={animateUptoDown}
+              initial={'hidden'}
+              whileInView={'show'}
+              viewport={{ once: true, amount: 0 }}
+              className="text-lg text-muted-foreground sm:text-2xl"
+            >
               {bike.description}
-            </p>
-            <div className="mt-4 flex flex-col items-start gap-3 sm:mt-8 sm:flex-row sm:items-center">
+            </Motion>
+            <Motion
+              type="div"
+              variants={animateRightToLeft}
+              initial={'hidden'}
+              whileInView={'show'}
+              viewport={{ once: true, amount: 0 }}
+              className="mt-4 flex flex-col items-start gap-3 sm:mt-8 sm:flex-row sm:items-center"
+            >
               <Link
                 href={{
                   pathname: '/orcamento',
@@ -109,8 +193,15 @@ function ProductOverviews({ bike }: { bike: Bike }) {
                   18 em estoque
                 </span>
               </div>
-            </div>
-            <section className="mt-4 pt-8 sm:mt-8">
+            </Motion>
+            <Motion
+              type="section"
+              variants={animateDownToUp}
+              initial={'hidden'}
+              whileInView={'show'}
+              viewport={{ once: true, amount: 0 }}
+              className="mt-4 pt-8 sm:mt-8"
+            >
               <h2 className="text-sm uppercase">Informações</h2>
               <div className="mt-4 sm:mt-8">
                 <ul
@@ -138,8 +229,15 @@ function ProductOverviews({ bike }: { bike: Bike }) {
                   ))}
                 </ul>
               </div>
-            </section>
-            <section className="mt-4 pt-8 sm:mt-8">
+            </Motion>
+            <Motion
+              type="section"
+              variants={animateDownToUp}
+              initial={'hidden'}
+              whileInView={'show'}
+              viewport={{ once: true, amount: 0 }}
+              className="mt-4 pt-8 sm:mt-8"
+            >
               <h2 className="text-sm uppercase">Ficha Técnica</h2>
               <div className="mt-4 sm:mt-8">
                 <ul
@@ -159,7 +257,7 @@ function ProductOverviews({ bike }: { bike: Bike }) {
                   ))}
                 </ul>
               </div>
-            </section>
+            </Motion>
           </div>
         </div>
       </div>
@@ -189,7 +287,11 @@ function FeaturedArticle() {
       <div className="container px-6 transition-all duration-700 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-x-8 lg:grid-cols-2">
           <div className="order-2 lg:order-1">
-            <Image
+            <MotionImagem
+              variants={animateScale}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0 }}
               src="/fotos/seguros.jpg"
               alt="Pessoa sentada numa bicicleta"
               width={1200}
@@ -197,7 +299,14 @@ function FeaturedArticle() {
               className="h-[300px] w-full min-w-full rounded-md object-cover object-top lg:h-full"
             />
           </div>
-          <div className="order-1 py-12 md:py-16 lg:order-2 lg:py-32">
+          <Motion
+            type="div"
+            variants={animateLeftToRight}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0 }}
+            className="order-1 py-12 md:py-16 lg:order-2 lg:py-32"
+          >
             <h2 className="mt-2 text-4xl font-bold sm:text-6xl">
               Pedale mais tranquilo com o nosso
               <span className="text-primary"> seguro.</span>
@@ -215,7 +324,7 @@ function FeaturedArticle() {
             >
               Conheça mais
             </Link>
-          </div>
+          </Motion>
         </div>
       </div>
     </section>
