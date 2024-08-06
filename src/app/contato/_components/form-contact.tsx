@@ -1,12 +1,20 @@
 'use client'
 
+import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
+import { useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { sendContactAction } from '@/actions/contatct/send'
+import {
+  ContactSchema,
+  TContactSchemaData,
+} from '@/actions/contatct/send/schema'
 import { CustomFormField } from '@/components/custom-form-field'
 import { Motion } from '@/components/motion-wrapper'
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
+import { customToast } from '@/lib/custom-toast'
 
 const container = {
   hidden: { opacity: 0 },
@@ -39,13 +47,35 @@ const animateDownToUp = {
   },
 }
 
+const defaultValues = {
+  name: '',
+  phone: '',
+  email: '',
+  message: '',
+}
+
 export function FormContact() {
-  const form = useForm()
+  const [isPending, startTransition] = useTransition()
+  const form = useForm<TContactSchemaData>({
+    resolver: zodResolver(ContactSchema),
+    defaultValues,
+  })
+
+  async function onSendMessage(formData: TContactSchemaData) {
+    startTransition(() => {
+      sendContactAction(formData)
+        .then((data) => {
+          customToast(data)
+        })
+        .then(() => {
+          form.reset(defaultValues)
+        })
+    })
+  }
   return (
     <Form {...form}>
       <form
-        action="#"
-        method="POST"
+        onSubmit={form.handleSubmit(onSendMessage)}
         className="relative col-span-2 rounded-b-md bg-foreground px-6 py-16 lg:rounded-r-md lg:px-8"
       >
         <Image
@@ -75,9 +105,9 @@ export function FormContact() {
             <Motion type="div" variants={item}>
               <CustomFormField
                 name="phone"
-                placeholder="(21) 9999-9999"
+                placeholder="(21) 99999-9999"
                 label="Telefone"
-                type="tel"
+                mask="tel"
               />
             </Motion>
             <Motion type="div" variants={item} className="sm:col-span-2">
@@ -105,7 +135,11 @@ export function FormContact() {
             viewport={{ once: true, amount: 0 }}
             className="mt-8 flex justify-start"
           >
-            <Button className="mt-5 px-8 py-6 text-lg font-semibold uppercase shadow-shape">
+            <Button
+              type="submit"
+              disabled={isPending}
+              className="mt-5 px-8 py-6 text-lg font-semibold uppercase shadow-shape"
+            >
               Enviar Mensagem
             </Button>
           </Motion>

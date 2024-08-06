@@ -16,7 +16,7 @@ interface CustomFormFieldProps {
   placeholder?: string
   isTextArea?: boolean
   type?: string
-  mask?: 'cpf' | 'cep'
+  mask?: 'cpf' | 'cep' | 'tel'
 }
 
 export function CustomFormField({
@@ -28,6 +28,16 @@ export function CustomFormField({
   mask,
 }: CustomFormFieldProps) {
   const { control, setValue } = useFormContext()
+
+  const formatTel = (value: string) => {
+    // Remove tudo que não é dígito
+    const cleaned = value.replace(/\D/g, '').slice(0, 11)
+    // Adiciona a formatação
+    return cleaned
+      .replace(/(\d{2})(\d)/, '($1) $2')
+      .replace(/(\d{5})(\d)/, '$1-$2')
+  }
+
   // Função para formatar CPF
   const formatCPF = (value: string) => {
     // Remove tudo que não é dígito
@@ -53,7 +63,9 @@ export function CustomFormField({
         ? formatCEP(value)
         : mask === 'cpf'
           ? formatCPF(value)
-          : value
+          : mask === 'tel'
+            ? formatTel(value)
+            : value
 
     setValue(name, newValue)
   }

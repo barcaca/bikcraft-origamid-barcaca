@@ -18,7 +18,6 @@ export async function confirmOrderAction(
     return { message: 'Formulário inválido.', status: 'warning' }
   }
 
-  console.log(validationFileds.data)
   try {
     // Aqui você pode adicionar a lógica para enviar os dados para o servidor
     // const response = await fetch('/api/confirm-order', {
