@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { useFormContext } from 'react-hook-form'
 
 import { CustomFormField } from '@/components/custom-form-field'
+import { Motion } from '@/components/motion-wrapper'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import {
@@ -50,6 +51,19 @@ const estadosBrasil = [
   { sigla: 'TO', nome: 'Tocantins' },
 ]
 
+const transition = {
+  duration: 0.5,
+  delay: 0.2,
+  ease: 'easeInOut',
+}
+const animateUpToDown = {
+  hidden: { opacity: 0, y: -100 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition,
+  },
+}
 export function FormBudgetAddress({ onPending }: { onPending: boolean }) {
   const { control } = useFormContext()
   return (
@@ -62,7 +76,14 @@ export function FormBudgetAddress({ onPending }: { onPending: boolean }) {
         className="absolute bottom-8 right-10 hidden md:block"
         aria-hidden="true"
       />
-      <div className="lg:px-16">
+      <Motion
+        type="div"
+        variants={animateUpToDown}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0 }}
+        className="lg:px-16"
+      >
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
           <div className="flex items-center gap-2 sm:col-span-2">
             <span className="mr-2 inline-block h-3 w-2 bg-yellow-500" />
@@ -152,7 +173,7 @@ export function FormBudgetAddress({ onPending }: { onPending: boolean }) {
             Solicitar Orçamento
           </Button>
         </div>
-      </div>
+      </Motion>
     </div>
   )
 }
