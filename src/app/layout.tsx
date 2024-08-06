@@ -29,6 +29,16 @@ export default function RootLayout({
       lang="en"
       className={`${poppins.variable} ${raleway.variable} h-full`}
     >
+      <head>
+        <noscript>
+          <style
+            dangerouslySetInnerHTML={{
+              __html:
+                '[style*="opacity:0"] { opacity: unset !important; transform: unset !important; }',
+            }}
+          />
+        </noscript>
+      </head>
       <body className="overflow-x-hidden antialiased">
         <Provider>
           <Header />
