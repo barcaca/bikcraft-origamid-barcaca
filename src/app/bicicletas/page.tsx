@@ -3,6 +3,7 @@ import { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { Motion } from '@/components/motion-wrapper'
 import { Title } from '@/components/title'
 import { buttonVariants } from '@/components/ui/button'
 import data from '@/data/data.json'
@@ -34,6 +35,28 @@ export const featureIcons: Record<BikeFeatureKey, string> = {
   material: '/icones/carbono.svg',
 }
 
+const transition = {
+  duration: 0.5,
+  delay: 0.2,
+  ease: 'easeInOut',
+}
+
+const animateLeftToRight = {
+  hidden: { opacity: 0, x: -100 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition,
+  },
+}
+const animateRightToLeft = {
+  hidden: { opacity: 0, x: 100 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition,
+  },
+}
 function ProductFeatures() {
   const bikes: Bike[] = data.bikes
   return (
@@ -46,7 +69,14 @@ function ProductFeatures() {
             aria-labelledby={`bike-title-${bike.slug}`}
           >
             <div className={'lg:container'}>
-              <div className="relative overflow-hidden shadow-shape lg:rounded-lg">
+              <Motion
+                type="div"
+                variants={animateLeftToRight}
+                initial={'hidden'}
+                whileInView={'show'}
+                viewport={{ once: true, amount: 0 }}
+                className="relative overflow-hidden shadow-shape lg:rounded-lg"
+              >
                 <Image
                   width={1120}
                   height={680}
@@ -57,9 +87,16 @@ function ProductFeatures() {
                 <span className="absolute right-0 top-4 rounded-l-md bg-background py-2 pl-2 pr-4 text-foreground">
                   R$ {bike.price}
                 </span>
-              </div>
+              </Motion>
             </div>
-            <div className={'mt-3 px-6 sm:mt-6 lg:mt-0 lg:pr-8'}>
+            <Motion
+              type="div"
+              variants={animateRightToLeft}
+              initial={'hidden'}
+              whileInView={'show'}
+              viewport={{ once: true, amount: 0 }}
+              className={'mt-3 px-6 sm:mt-6 lg:mt-0 lg:pr-8'}
+            >
               <span className="inline-block h-2 w-3 bg-yellow-500" />
               <h2
                 id={`bike-title-${bike.slug}`}
@@ -101,7 +138,7 @@ function ProductFeatures() {
                   <ArrowRight className="transition-all group-hover:translate-x-3" />
                 </Link>
               </div>
-            </div>
+            </Motion>
           </section>
         ))}
       </div>
