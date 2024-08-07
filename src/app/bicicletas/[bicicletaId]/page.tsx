@@ -11,7 +11,6 @@ import data from '@/data/data.json'
 import { cn, entries } from '@/lib/utils'
 import { Bike, BikeFeatureKey } from '@/types/bikes'
 
-import { featureIcons } from '../page'
 import { GalleryImagens } from './_components/gallery-imagens'
 
 export async function generateMetadata({
@@ -127,6 +126,13 @@ const animateScale = {
       duration: 0.5,
     },
   },
+}
+
+const featureIcons: Record<BikeFeatureKey, string> = {
+  motor: '/icones/eletrica.svg',
+  speed: '/icones/velocidade.svg',
+  tracker: '/icones/rastreador.svg',
+  material: '/icones/carbono.svg',
 }
 
 function ProductOverviews({ bike }: { bike: Bike }) {

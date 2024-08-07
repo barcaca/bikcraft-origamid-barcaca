@@ -28,7 +28,7 @@ export default function BicicletasPage() {
   )
 }
 
-export const featureIcons: Record<BikeFeatureKey, string> = {
+const featureIcons: Record<BikeFeatureKey, string> = {
   motor: '/icones/eletrica.svg',
   speed: '/icones/velocidade.svg',
   tracker: '/icones/rastreador.svg',
