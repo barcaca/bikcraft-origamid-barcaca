@@ -30,6 +30,9 @@ Bikcraft é um projeto desenvolvido durante o curso da Origamid que apresenta um
 
 ![Typescript](https://img.shields.io/badge/Typescript-%233178C6?style=for-the-badge&logo=typescript&logoColor=%23fff)
 
+![Framer Motion](https://img.shields.io/badge/Framer%20Motion-%23000?style=for-the-badge&logo=framer&logoColor=%23fff)
+
+
 ## 🏗️ Funcionalidades
 
 - Exibição de bicicletas elétricas com informações detalhadas.
