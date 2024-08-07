@@ -1,7 +1,6 @@
 import { CheckIcon } from 'lucide-react'
 import Image from 'next/image'
 
-import { featureIcons } from '@/app/bicicletas/page'
 import { CustomFormRadio } from '@/components/custom-form-radio'
 import { Motion } from '@/components/motion-wrapper'
 import { tiers } from '@/components/tier-card'
@@ -9,7 +8,7 @@ import { FormControl, FormItem, FormLabel } from '@/components/ui/form'
 import { RadioGroupItem } from '@/components/ui/radio-group'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { entries } from '@/lib/utils'
-import { Bike } from '@/types/bikes'
+import { Bike, BikeFeatureKey } from '@/types/bikes'
 
 import { SearchParams } from '../page'
 
@@ -30,6 +29,13 @@ const animateDownToUp = {
     y: 0,
     transition,
   },
+}
+
+const featureIcons: Record<BikeFeatureKey, string> = {
+  motor: '/icones/eletrica.svg',
+  speed: '/icones/velocidade.svg',
+  tracker: '/icones/rastreador.svg',
+  material: '/icones/carbono.svg',
 }
 
 export function FormBudgetPlanBike({
